@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lista de Turmas e Disciplinas</title>
+  </head>
+  <body>
+    <h1>Lista de Turmas e Disciplinas</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Turma</th>
+          <th>Disciplina</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="turmaDisciplina : ${turmasDisciplinas}">
+          <td th:text="${turmaDisciplina.idTurma.nomeTurma}"></td>
+          <td th:text="${turmaDisciplina.idDisciplina.nome}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="/">Voltar para a Home</a>
+  </body>
+</html>

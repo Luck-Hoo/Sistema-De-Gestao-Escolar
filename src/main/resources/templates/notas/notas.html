@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Notas</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="p-3 mb-2 bg-success">
+    <div class="container">
+      <h1>Lista de Notas</h1>
+      <a th:href="@{/}">Home</a>
+
+      <table class="table table-bordered border-primary">
+        <thead>
+          <tr>
+            <th>Mátricula</th>
+            <th>Nome do Aluno</th>
+            <th>Disciplina</th>
+            <th>Semestre</th>
+            <th>Etapa</th>
+            <th>Nota</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="nota : ${notas}">
+            <td th:text="${nota.aluno.matricula}"></td>
+            <td th:text="${nota.aluno.nome}"></td>
+            <td th:text="${nota.disciplina.nome}"></td>
+            <td th:text="${nota.semestre}"></td>
+            <td th:text="${nota.etapa}"></td>
+            <td th:text="${nota.nota}"></td>
+            <td>
+              <a
+                th:href="@{/notas/{id}/editar(id=${nota.id})}"
+                class="btn btn-info"
+                >Editar</a
+              >
+              <a
+                th:href="@{/notas/{id}/deletar(id=${nota.id})}"
+                class="btn btn-danger"
+                >Excluir</a
+              >
+              <a
+                th:href="@{/notas/{alunoMatricula}/matriz(alunoMatricula=${nota.aluno.matricula})}"
+                class="btn btn-primary"
+                >Matriz</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="mt-4">Adicionar Nova Nota</h2>
+      <form th:action="@{/notas}" method="post" th:object="${notaAluno}">
+        <div class="mb-3">
+          <label for="aluno" class="form-label">Aluno</label>
+          <select
+            class="form-control"
+            id="aluno"
+            th:field="*{aluno.matricula}"
+            required
+          >
+            <option value="">Selecione um Aluno</option>
+            <option
+              th:each="aluno : ${alunoService.listarAlunos()}"
+              th:value="${aluno.matricula}"
+              th:text="${aluno.nome}"
+            ></option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="disciplina" class="form-label">Disciplina</label>
+          <select
+            class="form-control"
+            id="disciplina"
+            th:field="*{disciplina}"
+            required
+          >
+            <option value="">Selecione uma Disciplina</option>
+            <option
+              th:each="disciplina : ${disciplinas.listarDisciplinas()}"
+              th:value="${disciplina.idDisciplina}"
+              th:text="${disciplina.nome}"
+            ></option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="semestre" class="form-label">Semestre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="semestre"
+            th:field="*{semestre}"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="etapa" class="form-label">Etapa</label>
+          <select class="form-control" id="etapa" th:field="*{etapa}" required>
+            <option value="">Selecione uma Etapa</option>
+            <option value="P1">P1</option>
+            <option value="P2">P2</option>
+            <option value="P3">P3</option>
+            <option value="Recuperação">Recuperação</option>
+            <option value="Prova Final">Prova Final</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="nota" class="form-label">Nota</label>
+          <input
+            type="number"
+            class="form-control"
+            id="nota"
+            step="0.01"
+            min="0"
+            max="10"
+            th:field="*{nota}"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar Nota</button>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

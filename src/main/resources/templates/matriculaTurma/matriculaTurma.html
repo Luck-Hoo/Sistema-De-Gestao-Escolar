@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lista de Matrículas</title>
+  </head>
+  <body>
+    <h1>Lista de Matrículas</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Aluno</th>
+          <th>Turma</th>
+          <th>Data da Matricula</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="matricula : ${matriculas}">
+          <td th:text="${matricula.id}"></td>
+          <td th:text="${matricula.aluno.nome}"></td>
+          <td th:text="${matricula.turma.nome}"></td>
+          <td
+            th:text="${#temporals.format(matricula.dataMatricula, 'dd/MM/yyyy')}"
+          ></td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="/">Voltar para a Home</a>
+  </body>
+</html>

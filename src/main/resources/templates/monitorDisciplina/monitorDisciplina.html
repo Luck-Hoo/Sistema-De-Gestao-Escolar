@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lista de Monitores e Disciplinas</title>
+  </head>
+  <body>
+    <h1>Lista de Monitores e Disciplinas</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Monitor</th>
+          <th>Disciplina</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="monitorDisciplina : ${monitoresDisciplinas}">
+          <td th:text="${monitorDisciplina.monitor.nome}"></td>
+          <td th:text="${monitorDisciplina.disciplina.nome}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="/">Voltar para a Home</a>
+  </body>
+</html>

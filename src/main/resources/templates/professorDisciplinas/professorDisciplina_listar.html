@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lista de Relações Professor-Disciplina</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Lista de Relações Professor-Disciplina</h1>
+      <a th:href="@{/}">Home</a>
+      <div th:if="${success}" class="alert alert-success" role="alert">
+        <p th:text="${success}"></p>
+      </div>
+      <div th:if="${error}" class="alert alert-danger" role="alert">
+        <p th:text="${error}"></p>
+      </div>
+      <a th:href="@{/professorDisciplinas/novo}" class="btn btn-primary mb-3"
+        >Adicionar Nova Relação</a
+      >
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Professor</th>
+            <th>Disciplina</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="relacao : ${relacoes}">
+            <td th:text="${relacao.professor.nome}"></td>
+            <td th:text="${relacao.disciplina.nome}"></td>
+            <td>
+              <a
+                th:href="@{/professorDisciplinas/editar/{matriculaProfessor}/{idDisciplina}(matriculaProfessor=${relacao.matriculaProfessor}, idDisciplina=${relacao.idDisciplina})}"
+                class="btn btn-sm btn-warning"
+                >Editar</a
+              >
+              <a
+                th:href="@{/professorDisciplinas/excluir/{matriculaProfessor}/{idDisciplina}(matriculaProfessor=${relacao.matriculaProfessor}, idDisciplina=${relacao.idDisciplina})}"
+                class="btn btn-sm btn-danger"
+                >Excluir</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
